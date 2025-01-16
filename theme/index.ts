@@ -13,7 +13,7 @@ export const theme = createTheme({
   black: '#090A0A',
   white: '#F7F9FA',
   primaryShade: { light: 5, dark: 4 },
-  primaryColor: 'orange',
+  primaryColor: 'blue',
   colors,
   fontFamily: bodyFF,
   fontFamilyMonospace: monoFF,

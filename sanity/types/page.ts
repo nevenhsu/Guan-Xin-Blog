@@ -13,7 +13,7 @@ export type PageData = SanitySlug & {
   mainImage: Rwd<{ asset: ImageAssetData }>
   categories: CategoryData[]
   author: AvatarData
-  publishedAt: string
+  publishedAt: string | number
   readTime: number
 }
 

@@ -3,7 +3,7 @@ import { Caption } from '@/components/Fonts'
 import { formatZonedDate } from '@/utils/helper'
 import type { PageData } from '@/sanity/types/page'
 
-export default function BlogInfo({ data }: { data: Partial<PageData> }) {
+export function BlogInfo({ data }: { data: Partial<PageData> }) {
   const { publishedAt, readTime } = data
   if (!publishedAt && !readTime) return null
 
@@ -13,10 +13,14 @@ export default function BlogInfo({ data }: { data: Partial<PageData> }) {
         {publishedAt ? (
           <>
             <Caption>{formatZonedDate(publishedAt)}</Caption>
-            <Caption>·</Caption>
           </>
         ) : null}
-        <Caption>{`${readTime} min read`}</Caption>
+        {readTime ? (
+          <>
+            <Caption>·</Caption>
+            <Caption>{`${readTime} min read`}</Caption>
+          </>
+        ) : null}
       </Group>
     </>
   )

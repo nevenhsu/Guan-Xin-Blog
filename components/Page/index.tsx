@@ -11,7 +11,7 @@ import { MotionSlide, MotionBlur } from '@/components/motion'
 import { MyPortableText } from '@/components/common'
 import { Box, Stack, Space } from '@mantine/core'
 import { Headline } from '@/components/Fonts'
-import PageInfo from './PageInfo'
+import { BlogInfo } from '@/components/share/BlogInfo'
 import RwdLayout from '@/components/share/RwdLayout'
 import SanityImage from '@/components/sanity/Image'
 import MyAvatar from '@/components/sanity/MyAvatar'
@@ -78,7 +78,7 @@ export default function Blog({ slug, lang, initialData }: PageProps) {
       <RwdLayout>
         <MotionSlide delay={1}>
           <Stack>
-            <PageInfo data={data} />
+            <BlogInfo data={data} />
             <Headline>{title}</Headline>
             {author ? <MyAvatar data={author} /> : null}
           </Stack>
