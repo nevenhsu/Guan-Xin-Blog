@@ -1,10 +1,19 @@
 'use client'
 
-import { AppShell } from '@mantine/core'
+import { AppShell, Space } from '@mantine/core'
 import Header from './Header'
+import Footer from './Footer'
+import { FooterInfo } from '@/components/Footer/FooterInfo'
 import { variables } from '@/theme/cssVariables'
+import type { FooterData } from '@/sanity/types/footer'
 
-export default function MyAppShell({ children }: React.PropsWithChildren) {
+type MyShellProps = React.PropsWithChildren & {
+  footerData: Partial<FooterData>
+}
+
+export default function MyAppShell(props: MyShellProps) {
+  const { children, footerData } = props
+
   return (
     <AppShell
       header={{ ...variables.header }}
@@ -17,7 +26,21 @@ export default function MyAppShell({ children }: React.PropsWithChildren) {
         <Header />
       </AppShell.Header>
 
-      <AppShell.Main>{children}</AppShell.Main>
+      <AppShell.Main>
+        <>
+          {children}
+
+          <Space h={100} />
+
+          <FooterInfo initialData={footerData} />
+
+          <Space h={24} />
+        </>
+      </AppShell.Main>
+
+      <AppShell.Footer>
+        <Footer />
+      </AppShell.Footer>
     </AppShell>
   )
 }

@@ -1,0 +1,60 @@
+'use client'
+
+import useQuery from '@/sanity/hooks/useQuery'
+import { useAppContext } from '@/store/AppContext'
+import { MotionSlide } from '@/components/motion'
+import { px, Group } from '@mantine/core'
+import { MyTitle, Subtitle, Body } from '@/components/Fonts'
+import RwdBlock from '@/components/sanity/Rwd/Block'
+import UnderlineMotion from '@/components/motion/Underline'
+import PopoverIcon from './PopoverIcon'
+import DrawerIcon from './DrawerIcon'
+import { footerQuery } from '@/sanity/queries'
+import type { FooterData } from '@/sanity/types/footer'
+
+export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }) {
+  const [data] = useQuery<Partial<FooterData>>(initialData, footerQuery)
+  const { email } = data || {}
+
+  const { state } = useAppContext()
+  const { width } = state.viewportSize
+  const matches = width >= Number(px('48em'))
+
+  return (
+    <RwdBlock
+      ta="center"
+      px={24}
+      style={{
+        position: 'relative',
+        zIndex: 1,
+        background: 'var(--mantine-color-body)',
+      }}
+    >
+      <MotionSlide delay={3}>
+        <MyTitle mb={40}>{data?.title}</MyTitle>
+        <Body mb={20}>{data?.description}</Body>
+
+        {email ? (
+          <UnderlineMotion>
+            <Subtitle
+              className="c-pointer"
+              mb={48}
+              onClick={() => (window.location.href = `mailto:${email}`)}
+              display="inline-block"
+            >
+              {email}
+            </Subtitle>
+          </UnderlineMotion>
+        ) : null}
+
+        <Group gap={24} justify="center">
+          {matches ? (
+            <>{data?.links?.map(d => <PopoverIcon key={d._key} data={d} />)}</>
+          ) : (
+            <>{data?.links?.map(d => <DrawerIcon key={d._key} data={d} />)}</>
+          )}
+        </Group>
+      </MotionSlide>
+    </RwdBlock>
+  )
+}

@@ -94,8 +94,6 @@ export default function Home() {
           </Carousel>
         </Stack>
       </RwdLayout>
-
-      <Space h={100} />
     </>
   )
 }

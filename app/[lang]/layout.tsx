@@ -12,6 +12,7 @@ import Providers from '@/components/providers/Providers'
 import MyAppShell from '@/components/MyAppShell'
 import { fontVariables } from '@/theme/font'
 import { env, publicEnv } from '@/utils/env'
+import { getFooterData } from '@/sanity/queries'
 
 const gaId = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
 
@@ -48,8 +49,11 @@ export default async function LocaleLayout({
   const { isEnabled } = await draftMode()
   const { isMobileDevice } = await detectDevice()
 
+  // for shell
+  const footerData = isEnabled ? {} : await getFooterData()
+
   const renderContent = () => {
-    return <MyAppShell>{children}</MyAppShell>
+    return <MyAppShell footerData={footerData}>{children}</MyAppShell>
   }
 
   return (
