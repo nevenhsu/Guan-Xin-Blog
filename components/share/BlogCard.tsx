@@ -7,7 +7,7 @@ import type { PageData } from '@/sanity/types/page'
 
 export function BlogCard({ data }: { data: Partial<PageData> }) {
   return (
-    <Stack>
+    <Stack className="c-pointer">
       <AspectRatio pos="relative" ratio={3 / 2}>
         <Box>
           <Image src="/images/cover/cover-0.png" alt="" objectFit="cover" fill />

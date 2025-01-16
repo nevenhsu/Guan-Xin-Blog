@@ -1,10 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import { Stack, Space, Center, Title } from '@mantine/core'
+import { Stack, Space, Center, Title, Divider } from '@mantine/core'
 import { Carousel } from '@mantine/carousel'
 import RwdLayout from '@/components/share/RwdLayout'
 import { BlogCard } from '@/components/share/BlogCard'
+import { AlbumCover } from './AlbumCover'
 
 const MySlide = Center.withProps({ h: '100%' })
 const MyTitle = Title.withProps({
@@ -50,13 +51,51 @@ export default function Home() {
       <Space h="xl" />
 
       <RwdLayout>
-        <Stack gap="xl">
-          <Title order={3}>Recent blog posts</Title>
+        <Stack gap={40}>
+          <Title order={2} fw={400}>
+            Recent blog posts
+          </Title>
 
-          <BlogCard data={{ publishedAt: Date.now() }} />
-          <BlogCard data={{}} />
+          <Stack gap="xl">
+            <BlogCard data={{ publishedAt: Date.now() }} />
+            <BlogCard data={{}} />
+          </Stack>
+
+          <Divider />
+
+          <Title order={2} fw={400}>
+            Event albums
+          </Title>
+
+          <Carousel
+            withIndicators
+            loop
+            styles={{
+              indicators: {
+                bottom: -20,
+              },
+              indicator: {
+                backgroundColor: 'var(--mantine-color-dark-6)',
+              },
+            }}
+          >
+            <Carousel.Slide>
+              <AlbumCover />
+            </Carousel.Slide>
+            <Carousel.Slide>
+              <AlbumCover />
+            </Carousel.Slide>
+            <Carousel.Slide>
+              <AlbumCover />
+            </Carousel.Slide>
+            <Carousel.Slide>
+              <AlbumCover />
+            </Carousel.Slide>
+          </Carousel>
         </Stack>
       </RwdLayout>
+
+      <Space h={100} />
     </>
   )
 }
