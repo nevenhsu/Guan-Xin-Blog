@@ -147,6 +147,21 @@ export const homeQuery = groq`
 }
 `
 
+export const aboutQuery = groq`
+*[_type=='about' && lang==$lang][0]
+{
+  ...,
+  mainImage {
+    ...,
+    ${assetQuery}
+  },
+  members[] -> {
+    ${memberQuery}
+  },
+  body[] ${blockContent}
+}
+`
+
 export async function getHomeData(lang: string): Promise<Partial<HomeData>> {
   try {
     const data = await client.fetch<HomeData>(homeQuery, { lang })
