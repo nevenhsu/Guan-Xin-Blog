@@ -14,6 +14,8 @@ export const routing = defineRouting({
   // all pathnames that should be localized
   pathnames: {
     '/': '/',
+    '/page': '/page',
+    '/about': '/about',
   },
 })
 

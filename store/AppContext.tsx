@@ -8,6 +8,7 @@ type AppState = {
   isMobileDevice: boolean
   breakPoints: BreakPoint[]
   viewportSize: { width: number; height: number }
+  scroll: { x: number; y: number }
 }
 
 type AppValue = {
@@ -21,6 +22,7 @@ const initialState: AppState = {
   isMobileDevice: false,
   breakPoints: ['base'], // ['base', 'xs', 'sm', 'md', 'lg', 'xl']
   viewportSize: { width: 0, height: 0 },
+  scroll: { x: 0, y: 0 },
 }
 
 // Create the context

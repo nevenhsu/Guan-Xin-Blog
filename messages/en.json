@@ -1,6 +1,7 @@
 {
   "Header": {
     "home": "Home",
-    "news": "News"
+    "page": "Page",
+    "about": "About"
   }
 }
