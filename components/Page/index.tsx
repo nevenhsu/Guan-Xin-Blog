@@ -23,12 +23,11 @@ const headerHeight = variables.header.height
 
 type PageProps = {
   slug: string
-  lang: string
   initialData: Partial<PageData>
 }
 
-export default function Blog({ slug, lang, initialData }: PageProps) {
-  const [data] = useQuery<Partial<PageData>>(initialData, pageQuery, { slug, lang })
+export default function Blog({ slug, initialData }: PageProps) {
+  const [data] = useQuery<Partial<PageData>>(initialData, pageQuery, { slug })
   const { title, content, mainImage, author } = data
   const show = !_.isEmpty(data)
   const [isInit, setInit] = useState(false)

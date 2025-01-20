@@ -25,8 +25,8 @@ export default function MyAvatar({
         {image?.asset ? <SanityImage image={image.asset} /> : null}
       </Box>
       <Box>
-        <Body fw="bold">{name}</Body>
-        {showBio && bio ? <Caption>{bio}</Caption> : null}
+        <Body fw={500}>{name}</Body>
+        {showBio && bio ? <Caption c="dimmed">{bio}</Caption> : null}
       </Box>
     </Group>
   )

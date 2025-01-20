@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { AspectRatio, Stack, Group, Box, Title, Text, ThemeIcon } from '@mantine/core'
+import MyAvatar from '@/components/sanity/MyAvatar'
 import { BlogInfo } from './BlogInfo'
 import { MyBadge } from './MyBadge'
 import { PiArrowUpRight } from 'react-icons/pi'
@@ -14,9 +15,13 @@ export function BlogCard({ data }: { data: Partial<PageData> }) {
         </Box>
       </AspectRatio>
 
-      <Stack gap="xs">
-        <BlogInfo data={data} />
+      <Group gap="xs">
+        <MyBadge>Design</MyBadge>
+        <MyBadge>UX</MyBadge>
+        <MyBadge>UI</MyBadge>
+      </Group>
 
+      <Stack gap="xs">
         <Group justify="space-between" align="start" wrap="nowrap">
           <Title order={3}>UX review presentations</Title>
           <ThemeIcon variant="transparent">
@@ -29,10 +34,21 @@ export function BlogCard({ data }: { data: Partial<PageData> }) {
           managers?
         </Text>
 
-        <Group gap="xs">
-          <MyBadge>Design</MyBadge>
-          <MyBadge>UX</MyBadge>
-          <MyBadge>UI</MyBadge>
+        <Group justify="space-between" wrap="nowrap">
+          <MyAvatar
+            data={{
+              image: {
+                asset: {
+                  _ref: 'image-0',
+                  url: '/images/avatar/avatar-0.png',
+                },
+              },
+              name: 'John Doe',
+              bio: 'UX designer',
+            }}
+          />
+
+          <BlogInfo data={data} />
         </Group>
       </Stack>
     </Stack>

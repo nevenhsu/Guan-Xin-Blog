@@ -18,12 +18,11 @@ import classes from './index.module.css'
 
 type AboutProps = {
   initialData: Partial<AboutData>
-  lang: string
 }
 
-export default function About({ initialData, lang }: AboutProps) {
+export default function About({ initialData }: AboutProps) {
   const matches = useMediaQuery('(min-width: 48em)')
-  const [data] = useQuery<Partial<AboutData>>(initialData, aboutQuery, { lang })
+  const [data] = useQuery<Partial<AboutData>>(initialData, aboutQuery)
 
   const renderMembers = () =>
     data.members?.map((o, i) => <Member key={`${o._key}-${i}`} data={o} />)

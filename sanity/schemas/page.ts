@@ -1,5 +1,4 @@
 import { defineField, defineType } from 'sanity'
-import { getLangField } from './lib/getLangField'
 import { getRwdField } from './lib/getRwdField'
 import { isPostUnique } from './lib/isPostUnique'
 
@@ -18,12 +17,12 @@ export default defineType({
       title: 'Slug (url)',
       type: 'slug',
       options: {
-        source: 'lang.en.title',
+        source: 'pageData.title',
         maxLength: 96,
         isUnique: isPostUnique,
       },
     }),
-    defineField(getLangField({ type: 'pageData' })),
+    defineField({ name: 'pageData', type: 'pageData' }),
     defineField(
       getRwdField(
         { type: 'image', options: { hotspot: true } },
@@ -57,8 +56,8 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'lang.en.title',
-      subtitle: 'lang.en.description',
+      title: 'pageData.title',
+      subtitle: 'pageData.description',
       media: 'mainImage.base',
       hidden: 'hidden',
     },

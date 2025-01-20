@@ -57,7 +57,7 @@ export default function Home() {
           </Title>
 
           <Stack gap="xl">
-            <BlogCard data={{ publishedAt: Date.now() }} />
+            <BlogCard data={{ publishedAt: Date.now(), readTime: 4 }} />
             <BlogCard data={{}} />
           </Stack>
 

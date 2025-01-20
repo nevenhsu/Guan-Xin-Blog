@@ -3,7 +3,7 @@ import { fontVariables } from '@/theme/font'
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={fontVariables}>
+    <html lang="zhTW" className={fontVariables}>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
       </body>

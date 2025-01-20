@@ -13,11 +13,10 @@ import type { PageData } from '@/sanity/types/page'
 
 type BlogListProps = {
   initialData: Array<PageData>
-  lang: string
 }
 
-export default function BlogList({ initialData, lang }: BlogListProps) {
-  const [data] = useQuery<Array<PageData>>(initialData, pagesQuery, { lang })
+export default function BlogList({ initialData }: BlogListProps) {
+  const [data] = useQuery<Array<PageData>>(initialData, pagesQuery)
 
   const {
     state: { viewportSize },

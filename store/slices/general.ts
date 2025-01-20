@@ -7,7 +7,7 @@ interface GeneralState {
 }
 
 const initialState: GeneralState = {
-  preferLang: 'en', // default language
+  preferLang: 'zhTW', // default language
 }
 
 const generalSlice = createSlice({

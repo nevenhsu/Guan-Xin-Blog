@@ -2,6 +2,7 @@ import groq from 'groq'
 import { client } from '@/sanity/client'
 import type { ImageData } from '@/sanity/types/image'
 import type { HomeData } from '@/sanity/types/home'
+import type { AboutData } from '@/sanity/types/about'
 import type { PageData } from '@/sanity/types/page'
 import type { FooterData } from '@/sanity/types/footer'
 import type { SanitySlug } from '@/sanity/types/common'
@@ -102,11 +103,7 @@ const pageDataQuery = groq`
       ${assetQuery}
     }
   },
-  ...lang[$lang] {
-    ...,
-    content[] ${blockContent},
-  },
-  "lang": null,
+  content[] ${blockContent},
 `
 
 export async function getImageData(id: string) {
@@ -119,7 +116,7 @@ export async function getImageData(id: string) {
 }
 
 export const homeQuery = groq`
-*[_type=='home' && lang==$lang][0]
+*[_type=='home'][0]
 {
   ...,
   pages[]-> {
@@ -148,7 +145,7 @@ export const homeQuery = groq`
 `
 
 export const aboutQuery = groq`
-*[_type=='about' && lang==$lang][0]
+*[_type=='about'][0]
 {
   ...,
   mainImage {
@@ -162,9 +159,19 @@ export const aboutQuery = groq`
 }
 `
 
-export async function getHomeData(lang: string): Promise<Partial<HomeData>> {
+export async function getAboutData(): Promise<Partial<AboutData>> {
   try {
-    const data = await client.fetch<HomeData>(homeQuery, { lang })
+    const data = await client.fetch<AboutData>(aboutQuery)
+    return data
+  } catch (err) {
+    console.error(err)
+    return {}
+  }
+}
+
+export async function getHomeData(): Promise<Partial<HomeData>> {
+  try {
+    const data = await client.fetch<HomeData>(homeQuery)
     return data
   } catch (err) {
     console.error(err)
@@ -222,15 +229,13 @@ export const pageQuery = groq`
 export const pageMetaQuery = groq`
 *[_type=='page' && slug.current==$slug] {
   ...,
-  ...lang[$lang],
   "content": null,
-  "lang": null,
 }
 `
 
-export async function getPageData(slug: string, lang: string) {
+export async function getPageData(slug: string) {
   try {
-    const data = await client.fetch<PageData>(pageQuery, { slug, lang })
+    const data = await client.fetch<PageData>(pageQuery, { slug })
     return data
   } catch (err) {
     console.error(err)
@@ -239,16 +244,16 @@ export async function getPageData(slug: string, lang: string) {
 }
 
 export const pagesQuery = groq`
-*[_type=='page' && lang==$lang && hidden!=true] | order(publishedAt desc)
+*[_type=='page' && hidden!=true] | order(publishedAt desc)
 { 
   ${pageDataQuery} 
   "content": null
 }
 `
 
-export async function getPagesData(lang: string) {
+export async function getPagesData() {
   try {
-    const data = await client.fetch(pagesQuery, { lang })
+    const data = await client.fetch(pagesQuery)
     return data
   } catch (err) {
     console.error(err)

@@ -45,8 +45,6 @@ export default function MyAppShell(props: MyShellProps) {
         <>
           {children}
 
-          <Space h={100} />
-
           <FooterInfo initialData={footerData} />
 
           <Space h={24} />

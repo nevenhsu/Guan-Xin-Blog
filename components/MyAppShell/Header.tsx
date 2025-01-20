@@ -4,15 +4,15 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { usePathname, useRouter } from '@/i18n/routing'
+import { usePathname } from '@/i18n/routing'
 import { useMediaQuery, useDisclosure } from '@mantine/hooks'
 import { useAppContext } from '@/store/AppContext'
 import { modals } from '@mantine/modals'
 import { Link } from '@/i18n/routing'
-import { Group, Box, Button, Badge, ActionIcon, Menu, Stack, Divider } from '@mantine/core'
+import { Group, Box, Button, Badge, ActionIcon, Stack } from '@mantine/core'
 import { MotionSlide } from '@/components/motion'
 import UnderlineMotion from '@/components/motion/Underline'
-import { HiOutlineMenuAlt4, HiOutlineX, HiOutlineTranslate } from 'react-icons/hi'
+import { HiOutlineMenuAlt4, HiOutlineX } from 'react-icons/hi'
 import type { ButtonProps } from '@mantine/core'
 import classes from './index.module.css'
 
@@ -21,7 +21,6 @@ type MenuItem = { name: string; href: '/' | '/page' | '/about' }
 export default function Header() {
   const matches = useMediaQuery('(min-width: 36em)')
   const t = useTranslations('Header')
-  const router = useRouter()
   const pathname = usePathname()
 
   const {
@@ -31,17 +30,12 @@ export default function Header() {
 
   const [opened, { toggle, close }] = useDisclosure()
 
-  const handlelang = (locale: string) => {
-    close()
-    router.push(pathname, { locale })
-  }
-
   // components
   const renderMenu = (onClick: (o: MenuItem) => void, props: ButtonProps) => {
     const menu: MenuItem[] = [
       { name: t('home'), href: '/' },
-      { name: t('page'), href: '/page' },
       { name: t('about'), href: '/about' },
+      { name: t('page'), href: '/page' },
     ]
 
     return menu.map(o => (
@@ -51,24 +45,6 @@ export default function Header() {
         </Button>
       </Link>
     ))
-  }
-
-  const renderLang = () => {
-    return (
-      <Menu shadow="md" position="bottom-end" width={120}>
-        <Menu.Target>
-          <ActionIcon variant="transparent" c="white">
-            <HiOutlineTranslate size={18} />
-          </ActionIcon>
-        </Menu.Target>
-
-        <Menu.Dropdown>
-          <Menu.Label>Language</Menu.Label>
-          <Menu.Item onClick={() => handlelang('en')}>English</Menu.Item>
-          <Menu.Item onClick={() => handlelang('zhTW')}>中文</Menu.Item>
-        </Menu.Dropdown>
-      </Menu>
-    )
   }
 
   useEffect(() => {
@@ -81,19 +57,11 @@ export default function Header() {
         withCloseButton: false,
         withinPortal: false,
         children: (
-          <Stack className="absolute-center" gap={32} w="100%">
-            {renderMenu(o => toggle(), { fz: 20 })}
-            <Box h={120} />
-            <Group className={classes.lang} justify="center">
-              <Button variant="transparent" c="dimmed" onClick={() => handlelang('en')}>
-                English
-              </Button>
-              <Divider orientation="vertical" />
-              <Button variant="transparent" c="dimmed" onClick={() => handlelang('zhTW')}>
-                中文
-              </Button>
-            </Group>
-          </Stack>
+          <>
+            <Stack className="absolute-center" gap={32} w="100%">
+              {renderMenu(o => toggle(), { fz: 20 })}
+            </Stack>
+          </>
         ),
         styles: {
           body: { position: 'relative', height: '100%' },
@@ -125,8 +93,6 @@ export default function Header() {
               {renderMenu(o => null, {
                 fz: { base: 16, lg: 18 },
               })}
-
-              {renderLang()}
             </Group>
           ) : (
             <ActionIcon pos="relative" variant="transparent" onClick={toggle}>

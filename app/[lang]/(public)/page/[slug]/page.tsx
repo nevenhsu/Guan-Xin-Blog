@@ -10,13 +10,13 @@ type PageProps = {
 }
 
 export default async function PagePage({ params }: PageProps) {
-  const { lang, slug } = await params
+  const { slug } = await params
   const { isEnabled } = await draftMode()
-  const data = isEnabled ? {} : await getPageData(slug, lang)
+  const data = isEnabled ? {} : await getPageData(slug)
 
   return (
     <>
-      <Page slug={slug} lang={lang} initialData={data} />
+      <Page slug={slug} initialData={data} />
     </>
   )
 }

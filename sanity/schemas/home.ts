@@ -1,5 +1,4 @@
 import { defineField, defineType } from 'sanity'
-import { lang } from './fields/lang'
 
 export default defineType({
   name: 'home',
@@ -10,7 +9,6 @@ export default defineType({
     { name: 'news', title: 'News', options: { collapsible: false, columns: 2 } },
   ],
   fields: [
-    lang,
     defineField({
       name: 'header',
       title: 'Header',
@@ -76,11 +74,10 @@ export default defineType({
   preview: {
     select: {
       titles: 'titles',
-      lang: 'lang',
     },
     prepare(selection) {
-      const { titles, lang } = selection
-      return { title: `[${lang.toUpperCase()}] Home`, subtitle: titles.join(', ') }
+      const { titles } = selection
+      return { title: `Home`, subtitle: titles.join(', ') }
     },
   },
 })

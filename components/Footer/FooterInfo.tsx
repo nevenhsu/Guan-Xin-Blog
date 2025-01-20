@@ -3,8 +3,8 @@
 import useQuery from '@/sanity/hooks/useQuery'
 import { useAppContext } from '@/store/AppContext'
 import { MotionSlide } from '@/components/motion'
-import { px, Group } from '@mantine/core'
-import { MyTitle, Subtitle, Body } from '@/components/Fonts'
+import { Stack, Group, px } from '@mantine/core'
+import { Subtitle, Body, Caption } from '@/components/Fonts'
 import RwdBlock from '@/components/sanity/Rwd/Block'
 import UnderlineMotion from '@/components/motion/Underline'
 import PopoverIcon from './PopoverIcon'
@@ -14,7 +14,7 @@ import type { FooterData } from '@/sanity/types/footer'
 
 export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }) {
   const [data] = useQuery<Partial<FooterData>>(initialData, footerQuery)
-  const { email } = data || {}
+  const { email, phone, address } = data || {}
 
   const { state } = useAppContext()
   const { width } = state.viewportSize
@@ -22,30 +22,61 @@ export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }
 
   return (
     <RwdBlock
-      ta="center"
       px={24}
       style={{
         position: 'relative',
         zIndex: 1,
-        background: 'var(--mantine-color-body)',
       }}
     >
-      <MotionSlide delay={3}>
-        <MyTitle mb={40}>{data?.title}</MyTitle>
-        <Body mb={20}>{data?.description}</Body>
+      <MotionSlide>
+        <Stack mb="xl">
+          <Subtitle>About</Subtitle>
+          <Body maw={400}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+          </Body>
+        </Stack>
 
-        {email ? (
-          <UnderlineMotion>
-            <Subtitle
-              className="c-pointer"
-              mb={48}
-              onClick={() => (window.location.href = `mailto:${email}`)}
-              display="inline-block"
-            >
-              {email}
-            </Subtitle>
-          </UnderlineMotion>
-        ) : null}
+        <Stack gap={4}>
+          <Group gap="xs">
+            <Caption fw={500}>Email:</Caption>
+            <UnderlineMotion>
+              <Caption
+                display="inline-block"
+                className="c-pointer"
+                // onClick={() => (window.location.href = `mailto:${email}`)}
+              >
+                myEmail@gmail.com
+              </Caption>
+            </UnderlineMotion>
+          </Group>
+
+          <Group gap="xs">
+            <Caption fw={500}>Phone:</Caption>
+            <UnderlineMotion>
+              <Caption
+                display="inline-block"
+                className="c-pointer"
+                // onClick={() => (window.location.href = `mailto:${email}`)}
+              >
+                012-345-6789
+              </Caption>
+            </UnderlineMotion>
+          </Group>
+
+          <Group gap="xs">
+            <Caption fw={500}>Address:</Caption>
+            <UnderlineMotion>
+              <Caption
+                display="inline-block"
+                className="c-pointer"
+                // onClick={() => (window.location.href = `mailto:${email}`)}
+              >
+                1234 Main St, City, State, 12345
+              </Caption>
+            </UnderlineMotion>
+          </Group>
+        </Stack>
 
         <Group gap={24} justify="center">
           {matches ? (

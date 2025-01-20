@@ -1,6 +1,6 @@
 import { Box } from '@mantine/core'
 
-export default function UserLayout({
+export default function PageLayout({
   children,
   params,
 }: {

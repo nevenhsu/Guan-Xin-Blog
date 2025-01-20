@@ -13,7 +13,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { slug, lang } = await params
-  const data = await client.fetch<PageMetadataQuery>(pageMetaQuery, { slug, lang })
+  const data = await client.fetch<PageMetadataQuery>(pageMetaQuery, { slug })
 
   if (!data) throw new Error('no metadata document')
   const { title, description, mainImage } = data

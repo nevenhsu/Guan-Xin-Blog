@@ -17,7 +17,4 @@ export type PageData = SanitySlug & {
   readTime: number
 }
 
-export type PageMetadataQuery = Omit<PageData, 'lang'> & {
-  title: string
-  description: string
-}
+export type PageMetadataQuery = Omit<PageData, 'content'>

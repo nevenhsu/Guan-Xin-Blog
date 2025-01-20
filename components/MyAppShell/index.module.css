@@ -1,5 +1,6 @@
 .header {
   transition-duration: 500ms;
+  z-index: 1000;
 }
 
 .header-out {
