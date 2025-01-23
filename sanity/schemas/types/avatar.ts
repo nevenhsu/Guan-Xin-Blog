@@ -1,10 +1,19 @@
+import { sub } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'avatar',
   title: 'Avatar',
-  type: 'document',
+  type: 'object',
   fields: [
+    defineField({
+      name: 'image',
+      title: 'Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
     defineField({
       name: 'name',
       title: 'Name',
@@ -15,19 +24,5 @@ export default defineType({
       title: 'Bio',
       type: 'string',
     }),
-    defineField({
-      name: 'image',
-      title: 'Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-    }),
   ],
-  preview: {
-    select: {
-      title: 'name',
-      media: 'image',
-    },
-  },
 })

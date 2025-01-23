@@ -33,7 +33,7 @@ export default defineType({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: { type: 'avatar' },
+      to: { type: 'member' },
     }),
     defineField({
       name: 'categories',

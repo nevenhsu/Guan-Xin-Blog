@@ -3,13 +3,12 @@ import { defineField, defineType } from 'sanity'
 export default defineType({
   name: 'member',
   title: 'Member',
-  type: 'object',
+  type: 'document',
   fields: [
     defineField({
       name: 'avatar',
       title: 'Avatar',
-      type: 'reference',
-      to: { type: 'avatar' },
+      type: 'avatar',
     }),
     defineField({
       name: 'content',

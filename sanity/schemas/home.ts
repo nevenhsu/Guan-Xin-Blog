@@ -5,53 +5,27 @@ export default defineType({
   title: 'Home',
   type: 'document',
   fieldsets: [
-    { name: 'title', title: 'Title', options: { collapsible: false, columns: 1 } },
-    { name: 'news', title: 'News', options: { collapsible: false, columns: 2 } },
+    { name: 'banner', title: 'Banner', options: { collapsible: false, columns: 1 } },
+    { name: 'news', title: 'News', options: { collapsible: false, columns: 1 } },
   ],
   fields: [
     defineField({
-      name: 'header',
-      title: 'Header',
+      name: 'title',
+      title: 'Title',
       type: 'string',
     }),
     defineField({
-      name: 'titles',
-      title: 'Titles',
+      name: 'bannerPages',
+      title: 'Banners',
       type: 'array',
-      of: [{ type: 'string' }],
-      options: { layout: 'tags' },
-      fieldset: 'title',
+      of: [{ type: 'reference', to: { type: 'page' } }],
+      fieldset: 'banner',
     }),
     defineField({
-      name: 'titleDuration',
-      title: 'Duration (seconds))',
+      name: 'bannerDuration',
+      title: 'Duration (seconds)',
       type: 'number',
-      fieldset: 'title',
-    }),
-    defineField({
-      name: 'subtitle',
-      title: 'Subtitle',
-      type: 'string',
-    }),
-    defineField({
-      name: 'subtitleHref',
-      title: 'Subtitle Href',
-      type: 'href',
-    }),
-    defineField({
-      name: 'caption1',
-      title: 'Caption (Line 1)',
-      type: 'string',
-    }),
-    defineField({
-      name: 'caption2',
-      title: 'Caption (Line 2)',
-      type: 'string',
-    }),
-    defineField({
-      name: 'captionHref',
-      title: 'Caption Href',
-      type: 'href',
+      fieldset: 'banner',
     }),
     defineField({
       name: 'newsTitle',
@@ -60,24 +34,11 @@ export default defineType({
       fieldset: 'news',
     }),
     defineField({
-      name: 'arrowText',
+      name: 'newsPages',
       title: 'Arrow Text',
-      type: 'string',
-      fieldset: 'news',
-    }),
-    defineField({
-      name: 'pages',
       type: 'array',
       of: [{ type: 'reference', to: { type: 'page' } }],
+      fieldset: 'news',
     }),
   ],
-  preview: {
-    select: {
-      titles: 'titles',
-    },
-    prepare(selection) {
-      const { titles } = selection
-      return { title: `Home`, subtitle: titles.join(', ') }
-    },
-  },
 })

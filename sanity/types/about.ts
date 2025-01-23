@@ -5,13 +5,12 @@ import type { SanityArray } from './common'
 
 export type AboutData = {
   title: string
-  subtitle1: string
-  subtitle2: string
-  body: PortableTextBlock[]
+  subtitle: string
   mainImage: {
     asset: ImageAssetData
   }
-  membersTitle: string
+  body: PortableTextBlock[]
+  memberTitle: string
+  memberDuration: number
   members: SanityArray<MemberData>
-  duration: number
 }

@@ -21,10 +21,26 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'phone',
+      title: 'Phone',
+      type: 'string',
+    }),
+    defineField({
+      name: 'address',
+      title: 'Address',
+      type: 'string',
+    }),
+    defineField({
       name: 'links',
       title: 'Social Media Links',
       type: 'array',
       of: [{ type: 'socialMedia' }],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'description',
+    },
+  },
 })
