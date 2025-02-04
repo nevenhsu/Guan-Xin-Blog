@@ -19,4 +19,6 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+
+  title: 'Studio',
 })

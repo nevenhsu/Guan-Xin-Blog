@@ -6,6 +6,9 @@ import { Carousel } from '@mantine/carousel'
 import RwdLayout from '@/components/share/RwdLayout'
 import { BlogCard } from '@/components/share/BlogCard'
 import { AlbumCover } from './AlbumCover'
+import useQuery from '@/sanity/hooks/useQuery'
+import { homeQuery } from '@/sanity/queries'
+import type { HomeData } from '@/sanity/types/home'
 
 const MySlide = Center.withProps({ h: '100%' })
 const MyTitle = Title.withProps({
@@ -18,7 +21,14 @@ const MyTitle = Title.withProps({
   },
 })
 
-export default function Home() {
+type HomeProps = {
+  initialData: Partial<HomeData>
+}
+
+export default function Home({ initialData }: HomeProps) {
+  const [data] = useQuery<Partial<HomeData>>(initialData, homeQuery)
+  console.log('home data', data)
+
   return (
     <>
       <Carousel withIndicators loop height="40vh">

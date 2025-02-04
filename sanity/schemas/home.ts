@@ -35,7 +35,7 @@ export default defineType({
     }),
     defineField({
       name: 'newsPages',
-      title: 'Arrow Text',
+      title: 'Pages',
       type: 'array',
       of: [{ type: 'reference', to: { type: 'page' } }],
       fieldset: 'news',

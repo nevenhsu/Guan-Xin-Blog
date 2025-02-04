@@ -1,4 +1,6 @@
 import { setRequestLocale } from 'next-intl/server'
+import { draftMode } from 'next/headers'
+import { getHomeData } from '@/sanity/queries'
 import Home from '@/components/Home'
 
 export default async function LocalePage({ params }: { params: Promise<{ lang: string }> }) {
@@ -7,5 +9,8 @@ export default async function LocalePage({ params }: { params: Promise<{ lang: s
   // Enable static rendering
   setRequestLocale(lang)
 
-  return <Home />
+  const { isEnabled } = await draftMode()
+  const data = isEnabled ? {} : await getHomeData()
+
+  return <Home initialData={data} />
 }

@@ -119,28 +119,14 @@ export const homeQuery = groq`
 *[_type=='home'][0]
 {
   ...,
-  pages[]-> {
+  bannerPages[]-> {
     ${pageDataQuery}
     "content": null,
   },
-  gallery {
-    ...,
-    images[] {
-      ...,
-      "dimensions": lottieImage.asset->metadata.dimensions,
-      lottieImage {
-        ...,
-        ${assetQuery}
-      }
-    }
+  newsPages[]-> {
+    ${pageDataQuery}
+    "content": null,
   },
-  pattern {
-    ...,
-    image {
-      ...,
-      "url": @.asset->url
-    }
-  }
 }
 `
 
