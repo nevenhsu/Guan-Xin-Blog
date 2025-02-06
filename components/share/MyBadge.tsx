@@ -6,6 +6,7 @@ export const MyBadge = createPolymorphicComponent<'div', BadgeProps>(
   forwardRef<HTMLDivElement, BadgeProps>(({ children, ...others }, ref) => (
     <Badge
       component="div"
+      variant="outline"
       color={getInitialsColor(children?.toString() || '')}
       autoContrast
       {...others}

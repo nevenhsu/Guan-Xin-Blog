@@ -7,14 +7,16 @@ import type { PortableTextBlock } from 'sanity'
 
 export type PageData = SanitySlug & {
   hidden: boolean
-  title: string
-  description: string
-  content: SanityArray<PortableTextBlock>
+  pageData: {
+    title: string
+    description: string
+    content: SanityArray<PortableTextBlock>
+  }
   mainImage: Rwd<{ asset: ImageAssetData }>
-  categories: CategoryData[]
-  author: AvatarData
+  categories: SanityArray<CategoryData>
   publishedAt: string | number
   readTime: number
+  author?: { avatar: AvatarData }
 }
 
 export type PageMetadataQuery = Omit<PageData, 'content'>

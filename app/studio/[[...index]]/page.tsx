@@ -10,7 +10,7 @@ export const dynamic = 'force-static'
 export const metadata: Metadata = {
   ...studioMetadata,
   // Overrides the title until the Studio is loaded
-  title: 'Loading Studio…',
+  title: 'My Studio',
 }
 
 export const viewport: Viewport = {

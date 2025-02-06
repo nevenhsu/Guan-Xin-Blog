@@ -13,16 +13,17 @@ export default function MyAvatar({
   const { image, name, bio } = data || {}
 
   return (
-    <Group gap={12} wrap="nowrap">
+    <Group gap="xs" wrap="nowrap">
       <Box
-        w={{ base: 32, sm: 40 }}
-        h={{ base: 32, sm: 40 }}
+        w={{ base: 24, sm: 32 }}
+        h={{ base: 24, sm: 32 }}
         style={{
+          position: 'relative',
           borderRadius: 999,
           overflow: 'hidden',
         }}
       >
-        {image?.asset ? <SanityImage image={image.asset} /> : null}
+        <SanityImage image={image?.asset} />
       </Box>
       <Box>
         <Body fw={500}>{name}</Body>

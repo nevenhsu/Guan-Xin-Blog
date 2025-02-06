@@ -85,7 +85,7 @@ const blockContent = groq`
 }
 `
 
-const pageDataQuery = groq`
+const pageDataQuery = (withContent = true) => groq`
   ...,
   categories[]->,
   mainImage {
@@ -99,11 +99,15 @@ const pageDataQuery = groq`
   },
   author-> {
     ...,
-    image {
-      ${assetQuery}
+    avatar {
+      ...,
+      image { ..., ${assetQuery} },
     }
   },
-  content[] ${blockContent},
+  pageData {
+    ...,
+    ${withContent ? 'content[] ${blockContent}' : '"content": null'},
+  },
 `
 
 export async function getImageData(id: string) {
@@ -120,12 +124,11 @@ export const homeQuery = groq`
 {
   ...,
   bannerPages[]-> {
-    ${pageDataQuery}
-    "content": null,
+    ${pageDataQuery(false)}
+
   },
   newsPages[]-> {
-    ${pageDataQuery}
-    "content": null,
+    ${pageDataQuery(false)}
   },
 }
 `
@@ -208,7 +211,7 @@ export async function getSlugData() {
 export const pageQuery = groq`
 *[_type=='page' && slug.current==$slug][0]
 { 
-  ${pageDataQuery}
+  ${pageDataQuery(true)}
 }
 `
 
@@ -232,8 +235,7 @@ export async function getPageData(slug: string) {
 export const pagesQuery = groq`
 *[_type=='page' && hidden!=true] | order(publishedAt desc)
 { 
-  ${pageDataQuery} 
-  "content": null
+  ${pageDataQuery(false)} 
 }
 `
 

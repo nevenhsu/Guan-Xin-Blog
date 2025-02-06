@@ -1,4 +1,4 @@
-export type SanityArray<T> = Array<T & { _key: string }>
+export type SanityArray<T> = Array<T & { _id: string }>
 
 export type SanityReference = { _ref: string }
 
