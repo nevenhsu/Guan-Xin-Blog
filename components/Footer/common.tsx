@@ -2,19 +2,19 @@ import { forwardRef } from 'react'
 import { Group, ActionIcon, CopyButton, Button } from '@mantine/core'
 import { Subtitle } from '@/components/Fonts'
 import { getIcon, getName } from '@/utils/socialIcon'
-import { PiArrowUpRight } from 'react-icons/pi'
+import { PiArrowUpRight, PiCopy } from 'react-icons/pi'
 import type { ActionIconProps } from '@mantine/core'
 import type { SocialIconData } from '@/sanity/types/socialIcon'
 
-type SocialIconProps = { data: Partial<SocialIconData> } & ActionIconProps
+type SocialIconProps = { data: Partial<SocialIconData>; size?: number } & ActionIconProps
 
 export const SocialIcon = forwardRef<HTMLButtonElement, SocialIconProps>(function SocialIcon(
-  { data, ...rest },
+  { data, size = 24, ...rest },
   ref
 ) {
   return (
-    <ActionIcon size={32} ref={ref} c="white" variant="transparent" {...rest}>
-      {getIcon(data.icon, { size: 24 })}
+    <ActionIcon size={size} ref={ref} c="var(--mantine-color-text)" variant="transparent" {...rest}>
+      {getIcon(data.icon, { size })}
     </ActionIcon>
   )
 })
@@ -51,7 +51,7 @@ export function CopyName({ data }: { data: Partial<SocialIconData> }) {
       {username ? (
         <CopyButton value={username}>
           {({ copied, copy }) => (
-            <Button c="white" variant="transparent" onClick={copy}>
+            <Button rightSection={<PiCopy />} variant="transparent" onClick={copy}>
               {copied ? 'Copied' : 'Copy'}
             </Button>
           )}

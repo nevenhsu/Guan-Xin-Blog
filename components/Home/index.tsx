@@ -1,7 +1,7 @@
 'use client'
 
 import * as _ from 'lodash-es'
-import { Stack, Space, Title, Divider } from '@mantine/core'
+import { Stack, Space, Title, Divider, SimpleGrid } from '@mantine/core'
 import { Carousel } from '@mantine/carousel'
 import { MySlide } from './MySlide'
 import RwdLayout from '@/components/share/RwdLayout'
@@ -17,7 +17,6 @@ type HomeProps = {
 
 export default function Home({ initialData }: HomeProps) {
   const [data] = useQuery<Partial<HomeData>>(initialData, homeQuery)
-  console.log('home data', data)
 
   const { bannerPages, newsPages } = data
   const hasMultiBanners = (bannerPages?.length || 0) > 1
@@ -40,11 +39,13 @@ export default function Home({ initialData }: HomeProps) {
             {data.newsTitle || 'Latest news'}
           </Title>
 
-          <Stack gap="xl">
-            {_.map(newsPages, page => (
-              <BlogCard key={page._id} data={page} />
-            ))}
-          </Stack>
+          {newsPages ? (
+            <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing={40} verticalSpacing={40}>
+              {_.map(newsPages, page => (
+                <BlogCard key={page._id} data={page} />
+              ))}
+            </SimpleGrid>
+          ) : null}
 
           <Divider />
 

@@ -1,5 +1,4 @@
-import { Box, Group } from '@mantine/core'
-import { Body, Caption } from '@/components/Fonts'
+import { Box, Group, Text } from '@mantine/core'
 import SanityImage from '@/components/sanity/Image'
 import type { AvatarData } from '@/sanity/types/avatar'
 
@@ -23,11 +22,15 @@ export default function MyAvatar({
           overflow: 'hidden',
         }}
       >
-        <SanityImage image={image?.asset} />
+        <SanityImage image={image?.asset} sizes="32px" />
       </Box>
       <Box>
-        <Body fw={500}>{name}</Body>
-        {showBio && bio ? <Caption c="dimmed">{bio}</Caption> : null}
+        <Text fw={500}>{name}</Text>
+        {showBio && bio ? (
+          <Text fz={14} c="dimmed">
+            {bio}
+          </Text>
+        ) : null}
       </Box>
     </Group>
   )

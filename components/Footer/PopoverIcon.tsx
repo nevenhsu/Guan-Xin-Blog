@@ -1,4 +1,4 @@
-import { Box, Popover } from '@mantine/core'
+import { Stack, Box, Popover } from '@mantine/core'
 import { Body } from '@/components/Fonts'
 import SanityImage from '@/components/sanity/Image'
 import LinkIcon from './LinkIcon'
@@ -21,24 +21,24 @@ export default function PopoverIcon({ data }: { data: SocialIconData }) {
       shadow="md"
       radius={24}
       styles={{
-        dropdown: { padding: 24, background: 'var(--mantine-color-black)' },
+        dropdown: { padding: 24 },
       }}
     >
       <Popover.Target>
-        <SocialIcon data={data} />
+        <SocialIcon data={data} size={32} />
       </Popover.Target>
       <Popover.Dropdown>
-        <Box ta="center">
+        <Stack ta="center" gap="sm">
           <TitleGroup data={data} />
 
-          <Box w={160} h={160} my={24} mx="auto">
+          <Box pos="relative" w={160} h={160} mx="auto">
             <SanityImage image={asset} />
           </Box>
 
-          <Body mb={4}>{username}</Body>
+          <Body>{username}</Body>
 
           <CopyName data={data} />
-        </Box>
+        </Stack>
       </Popover.Dropdown>
     </Popover>
   )

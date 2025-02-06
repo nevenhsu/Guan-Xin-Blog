@@ -50,9 +50,10 @@ export default function DrawerIcon({ data }: { data: Partial<SocialIconData> }) 
           <Box
             ta="center"
             py={12}
-            bg="var(--mantine-color-blueGray-5)"
             style={{
               borderRadius: 8,
+              backgroundColor: 'var(--mantine-color-gray-1)',
+              border: '2px solid var(--mantine-color-gray-3)',
             }}
           >
             <MyTitle>{data.username}</MyTitle>
@@ -62,7 +63,7 @@ export default function DrawerIcon({ data }: { data: Partial<SocialIconData> }) 
       </Drawer>
 
       <Box onClick={open}>
-        <SocialIcon data={data} />
+        <SocialIcon size={32} data={data} />
       </Box>
     </>
   )

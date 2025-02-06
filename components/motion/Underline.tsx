@@ -37,7 +37,7 @@ export default function UnderlineMotion({
           display: 'block',
           position: 'absolute',
           [align]: 0,
-          bottom: -2,
+          bottom: 2,
           height: stroke || 1,
           width,
           backgroundColor: 'currentColor',

@@ -24,13 +24,14 @@ export default function SanityImage({ image, style, alt, ...rest }: SanityImageP
 
   return (
     <Image
+      fill
+      sizes="100vw"
       {...rest}
       src={image?.url || '/images/blank.png'}
       style={{ objectFit: 'cover', ...style }}
       placeholder="blur"
       blurDataURL={lqip || img?.metadata.lqip || ' '}
       alt={alt || ''}
-      fill
     />
   )
 }

@@ -4,4 +4,5 @@ export type NumberListData = {
   title: string
   list: SanityArray<{ title: string; body: string }>
   noDivider: boolean
+  _id: string
 }

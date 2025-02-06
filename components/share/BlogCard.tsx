@@ -14,8 +14,17 @@ export function BlogCard({ data }: { data: Partial<PageData> }) {
 
   return (
     <Stack className="c-pointer">
-      <AspectRatio pos="relative" ratio={3 / 2}>
-        <SanityImage image={imageAsset} />
+      <AspectRatio ratio={3 / 2}>
+        <Box pos="relative">
+          <SanityImage
+            image={imageAsset}
+            sizes="(max-width: 768px) 100vw, (max-width: 992px) 50vw, 33vw"
+            style={{
+              borderRadius: 10,
+              overflow: 'hidden',
+            }}
+          />
+        </Box>
       </AspectRatio>
 
       <Group gap="xs">
@@ -24,7 +33,7 @@ export function BlogCard({ data }: { data: Partial<PageData> }) {
         ))}
       </Group>
 
-      <Stack gap="xs">
+      <Stack gap="xs" h="100%">
         <Group justify="space-between" align="start" wrap="nowrap">
           <Title order={3}>{pageData?.title}</Title>
           <ThemeIcon variant="transparent">
@@ -35,6 +44,8 @@ export function BlogCard({ data }: { data: Partial<PageData> }) {
         <Text c="dimmed" mb="xs" lineClamp={3}>
           {pageData?.description}
         </Text>
+
+        <Box style={{ flexGrow: 1 }} />
 
         <Group justify="space-between" wrap="nowrap">
           <MyAvatar data={author?.avatar} />

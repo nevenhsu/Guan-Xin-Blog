@@ -24,8 +24,7 @@ export default function About({ initialData }: AboutProps) {
   const matches = useMediaQuery('(min-width: 48em)')
   const [data] = useQuery<Partial<AboutData>>(initialData, aboutQuery)
 
-  const renderMembers = () =>
-    data.members?.map((o, i) => <Member key={`${o._key}-${i}`} data={o} />)
+  const renderMembers = () => data.members?.map((o, i) => <Member key={`${o._id}-${i}`} data={o} />)
 
   if (!data) return null
 

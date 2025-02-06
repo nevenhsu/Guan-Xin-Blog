@@ -12,7 +12,7 @@ export function MySlide({ data }: MySlideProps) {
   const imageAsset = useScreenQueryValue(mainImage, 'asset')
 
   return (
-    <Center h="100%">
+    <Center pos="relative" h="100%">
       <SanityImage image={imageAsset} />
       <Title
         px={60}

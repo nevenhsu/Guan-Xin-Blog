@@ -5,7 +5,7 @@ export default function RwdLayout({
   ...rest
 }: { children?: React.ReactNode } & BoxProps) {
   return (
-    <Box px={{ base: 16 }} py={{ base: 24 }} {...rest}>
+    <Box px={{ base: 16, sm: 24 }} py={{ base: 24 }} {...rest}>
       {children}
     </Box>
   )

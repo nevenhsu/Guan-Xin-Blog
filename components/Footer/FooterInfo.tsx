@@ -3,9 +3,9 @@
 import useQuery from '@/sanity/hooks/useQuery'
 import { useAppContext } from '@/store/AppContext'
 import { MotionSlide } from '@/components/motion'
-import { Stack, Group, px } from '@mantine/core'
+import { Stack, Group, Space, SimpleGrid, px } from '@mantine/core'
 import { Subtitle, Body, Caption } from '@/components/Fonts'
-import RwdBlock from '@/components/sanity/Rwd/Block'
+import RwdLayout from '@/components/share/RwdLayout'
 import UnderlineMotion from '@/components/motion/Underline'
 import PopoverIcon from './PopoverIcon'
 import DrawerIcon from './DrawerIcon'
@@ -14,78 +14,88 @@ import type { FooterData } from '@/sanity/types/footer'
 
 export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }) {
   const [data] = useQuery<Partial<FooterData>>(initialData, footerQuery)
-  const { email, phone, address } = data || {}
+  const { title, description, email, phone, address, links } = data || {}
+  const hasInfo = Boolean(email || phone || address)
 
   const { state } = useAppContext()
   const { width } = state.viewportSize
   const matches = width >= Number(px('48em'))
 
   return (
-    <RwdBlock
-      px={24}
+    <RwdLayout
       style={{
         position: 'relative',
         zIndex: 1,
       }}
+      py={{ base: 40, sm: 60 }}
     >
       <MotionSlide>
-        <Stack mb="xl">
-          <Subtitle>About</Subtitle>
-          <Body maw={400}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-          </Body>
-        </Stack>
+        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
+          <Stack>
+            <Subtitle>{title}</Subtitle>
+            <Body maw={400}>{description}</Body>
+          </Stack>
 
-        <Stack gap={4}>
-          <Group gap="xs">
-            <Caption fw={500}>Email:</Caption>
-            <UnderlineMotion>
-              <Caption
-                display="inline-block"
-                className="c-pointer"
-                // onClick={() => (window.location.href = `mailto:${email}`)}
-              >
-                myEmail@gmail.com
-              </Caption>
-            </UnderlineMotion>
-          </Group>
+          <Stack gap={4}>
+            {hasInfo && <Space h={{ base: 0, sm: 36 }} />}
 
-          <Group gap="xs">
-            <Caption fw={500}>Phone:</Caption>
-            <UnderlineMotion>
-              <Caption
-                display="inline-block"
-                className="c-pointer"
-                // onClick={() => (window.location.href = `mailto:${email}`)}
-              >
-                012-345-6789
-              </Caption>
-            </UnderlineMotion>
-          </Group>
+            {email ? (
+              <Group gap="xs">
+                <Caption fw={500}>Email:</Caption>
+                <UnderlineMotion>
+                  <a href={`mailto:${email}`}>
+                    <Caption display="inline-block" className="c-pointer">
+                      {email}
+                    </Caption>
+                  </a>
+                </UnderlineMotion>
+              </Group>
+            ) : null}
 
-          <Group gap="xs">
-            <Caption fw={500}>Address:</Caption>
-            <UnderlineMotion>
-              <Caption
-                display="inline-block"
-                className="c-pointer"
-                // onClick={() => (window.location.href = `mailto:${email}`)}
-              >
-                1234 Main St, City, State, 12345
-              </Caption>
-            </UnderlineMotion>
-          </Group>
-        </Stack>
+            {phone ? (
+              <Group gap="xs">
+                <Caption fw={500}>Phone:</Caption>
+                <UnderlineMotion>
+                  <a href={`tel:${phone}`}>
+                    <Caption display="inline-block" className="c-pointer">
+                      {phone}
+                    </Caption>
+                  </a>
+                </UnderlineMotion>
+              </Group>
+            ) : null}
+
+            {address ? (
+              <Group gap="xs">
+                <Caption fw={500}>Address:</Caption>
+                <UnderlineMotion>
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Caption
+                      display="inline-block"
+                      className="c-pointer"
+                      // onClick={() => (window.location.href = `mailto:${email}`)}
+                    >
+                      {address}
+                    </Caption>
+                  </a>
+                </UnderlineMotion>
+              </Group>
+            ) : null}
+          </Stack>
+        </SimpleGrid>
+
+        {Boolean(links?.length) && <Space h={40} />}
 
         <Group gap={24} justify="center">
-          {matches ? (
-            <>{data?.links?.map(d => <PopoverIcon key={d._key} data={d} />)}</>
-          ) : (
-            <>{data?.links?.map(d => <DrawerIcon key={d._key} data={d} />)}</>
+          {links?.map(d =>
+            matches ? <PopoverIcon key={d._key} data={d} /> : <DrawerIcon key={d._key} data={d} />
           )}
         </Group>
       </MotionSlide>
-    </RwdBlock>
+    </RwdLayout>
   )
 }
