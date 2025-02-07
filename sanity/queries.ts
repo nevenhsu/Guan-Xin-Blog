@@ -232,20 +232,20 @@ export async function getPageData(slug: string) {
   }
 }
 
-export const pagesQuery = groq`
-*[_type=='page' && hidden!=true] | order(publishedAt desc)
+export const pagesQuery = (start: number, limit = 10) => groq`
+*[_type == 'page' && hidden != true] | order(publishedAt desc)[${start}...${start + limit}]
 { 
   ${pageDataQuery(false)} 
 }
 `
 
-export async function getPagesData() {
+export async function getPagesData(start: number, limit = 10): Promise<PageData[]> {
   try {
-    const data = await client.fetch(pagesQuery)
+    const data = await client.fetch<PageData[]>(pagesQuery(start, limit))
     return data
   } catch (err) {
     console.error(err)
-    return {}
+    return []
   }
 }
 

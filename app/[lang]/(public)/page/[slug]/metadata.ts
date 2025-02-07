@@ -16,7 +16,8 @@ export async function generateMetadata(
   const data = await client.fetch<PageMetadataQuery>(pageMetaQuery, { slug })
 
   if (!data) throw new Error('no metadata document')
-  const { title, description, mainImage } = data
+  const { mainImage, pageData } = data
+  const { title, description } = pageData || {}
 
   const breakpoints = ['xl', 'lg', 'md', 'sm', 'xs', 'base'] as const
 

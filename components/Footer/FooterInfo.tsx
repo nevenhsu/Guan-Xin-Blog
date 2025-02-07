@@ -22,13 +22,7 @@ export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }
   const matches = width >= Number(px('48em'))
 
   return (
-    <RwdLayout
-      style={{
-        position: 'relative',
-        zIndex: 1,
-      }}
-      py={{ base: 40, sm: 60 }}
-    >
+    <RwdLayout w={{ base: '100%', lg: 992 }} mx="auto">
       <MotionSlide>
         <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
           <Stack>
@@ -40,50 +34,37 @@ export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }
             {hasInfo && <Space h={{ base: 0, sm: 36 }} />}
 
             {email ? (
-              <Group gap="xs">
-                <Caption fw={500}>Email:</Caption>
-                <UnderlineMotion>
-                  <a href={`mailto:${email}`}>
-                    <Caption display="inline-block" className="c-pointer">
-                      {email}
-                    </Caption>
-                  </a>
-                </UnderlineMotion>
-              </Group>
+              <Link title="Email:">
+                <a href={`mailto:${email}`}>
+                  <Caption display="inline-block" className="c-pointer">
+                    {email}
+                  </Caption>
+                </a>
+              </Link>
             ) : null}
 
             {phone ? (
-              <Group gap="xs">
-                <Caption fw={500}>Phone:</Caption>
-                <UnderlineMotion>
-                  <a href={`tel:${phone}`}>
-                    <Caption display="inline-block" className="c-pointer">
-                      {phone}
-                    </Caption>
-                  </a>
-                </UnderlineMotion>
-              </Group>
+              <Link title="Phone:">
+                <a href={`tel:${phone}`}>
+                  <Caption display="inline-block" className="c-pointer">
+                    {phone}
+                  </Caption>
+                </a>
+              </Link>
             ) : null}
 
             {address ? (
-              <Group gap="xs">
-                <Caption fw={500}>Address:</Caption>
-                <UnderlineMotion>
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Caption
-                      display="inline-block"
-                      className="c-pointer"
-                      // onClick={() => (window.location.href = `mailto:${email}`)}
-                    >
-                      {address}
-                    </Caption>
-                  </a>
-                </UnderlineMotion>
-              </Group>
+              <Link title="Address:">
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Caption display="inline-block" className="c-pointer">
+                    {address}
+                  </Caption>
+                </a>
+              </Link>
             ) : null}
           </Stack>
         </SimpleGrid>
@@ -97,5 +78,16 @@ export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }
         </Group>
       </MotionSlide>
     </RwdLayout>
+  )
+}
+
+function Link({ title, children }: React.PropsWithChildren<{ title: string }>) {
+  return (
+    <>
+      <Group gap="xs">
+        <Caption fw={500}>{title}</Caption>
+        <UnderlineMotion style={{ bottom: 2 }}>{children}</UnderlineMotion>
+      </Group>
+    </>
   )
 }

@@ -7,3 +7,12 @@
   pointer-events: none;
   z-index: -1;
 }
+
+.button {
+  border-radius: 16px;
+}
+
+.button[data-disabled='true'] {
+  background-color: transparent;
+  border: 1px solid var(--mantine-color-gray-3);
+}

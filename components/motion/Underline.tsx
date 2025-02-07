@@ -2,15 +2,18 @@ import { useState, useEffect } from 'react'
 import { useHover } from '@mantine/hooks'
 import { Box, type BoxProps } from '@mantine/core'
 import { motion, animate, useTransform, useMotionValue } from 'framer-motion'
+import type { MotionStyle } from 'framer-motion'
 
 type UnderlineMotionProps = { children: React.ReactNode } & BoxProps & {
     duration?: number
     stroke?: number
+    style?: MotionStyle
   }
 
 export default function UnderlineMotion({
   children,
   stroke,
+  style,
   duration = 0.4,
   ...rest
 }: UnderlineMotionProps) {
@@ -34,11 +37,12 @@ export default function UnderlineMotion({
       {children}
       <motion.span
         style={{
+          bottom: -2,
+          height: stroke || 1,
+          ...style,
           display: 'block',
           position: 'absolute',
           [align]: 0,
-          bottom: 2,
-          height: stroke || 1,
           width,
           backgroundColor: 'currentColor',
         }}

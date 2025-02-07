@@ -4,9 +4,9 @@ import { createTheme } from '@mantine/core'
 import { colors } from './colors'
 import { Button, ActionIcon } from '@mantine/core'
 
-const titleFF = 'var(--font-title), var(--font-default)'
-const bodyFF = 'var(--font-body), var(--font-default)'
-const monoFF = 'var(--font-mono), var(--font-default)'
+const titleFF = 'var(--font-title), var(--font-tc), var(--font-default)'
+const bodyFF = 'var(--font-body), var(--font-tc), var(--font-default)'
+const monoFF = 'var(--font-mono), var(--font-tc), var(--font-default)'
 
 export const theme = createTheme({
   focusRing: 'never',

@@ -15,13 +15,13 @@ const body = Fira_Sans({
 const mono = Roboto_Mono({
   weight: ['400'],
   subsets: ['latin'],
-  variable: '--next-mono',
+  variable: '--font-mono',
 })
 
-// const tc = Noto_Sans_TC({
-//   weight: ['200', '400', '700'],
-//   subsets: ['latin'],
-//   variable: '--next-tc',
-// })
+const tc = Noto_Sans_TC({
+  weight: ['200', '400', '700'],
+  subsets: ['latin'],
+  variable: '--font-tc',
+})
 
-export const fontVariables = `${title.variable} ${body.variable} ${mono.variable}`
+export const fontVariables = `${title.variable} ${body.variable} ${mono.variable} ${tc.variable}`

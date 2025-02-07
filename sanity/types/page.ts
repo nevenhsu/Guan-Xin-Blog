@@ -6,6 +6,7 @@ import type { Rwd } from './rwd'
 import type { PortableTextBlock } from 'sanity'
 
 export type PageData = SanitySlug & {
+  _id: string
   hidden: boolean
   pageData: {
     title: string
