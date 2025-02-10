@@ -2,9 +2,7 @@
 
 import { useMediaQuery } from '@mantine/hooks'
 import { MotionSlide, MotionBlur } from '@/components/motion'
-import { Box, Title } from '@mantine/core'
-import { MyTitle } from '@/components/Fonts'
-import RwdLayout from '@/components/sanity/Rwd/Layout'
+import { Box, Title, Stack, Group, AspectRatio, Divider, SimpleGrid, Space } from '@mantine/core'
 import RwdBlock from '@/components/sanity/Rwd/Block'
 import RwdSimpleGrid from '@/components/sanity/Rwd/SimpleGrid'
 import SanityImage from '@/components/sanity/Image'
@@ -21,7 +19,7 @@ type AboutProps = {
 }
 
 export default function About({ initialData }: AboutProps) {
-  const matches = useMediaQuery('(min-width: 48em)')
+  const matches = useMediaQuery('(min-width: 36em)')
   const [data] = useQuery<Partial<AboutData>>(initialData, aboutQuery)
 
   const renderMembers = () => data.members?.map((o, i) => <Member key={`${o._id}-${i}`} data={o} />)
@@ -29,70 +27,75 @@ export default function About({ initialData }: AboutProps) {
   if (!data) return null
 
   return (
-    <RwdLayout
-      style={{
-        width: '100vw',
-        overflowX: 'hidden',
-      }}
-    >
-      <>
-        <RwdBlock w={{ base: '100%', sm: '66.67%', lg: 968 }} mx="auto" pt={{ base: 40, sm: 100 }}>
-          <Box pos="relative" mb={{ base: 160, sm: 80 }}>
-            {/*   Image  */}
-            {data.mainImage ? (
-              <MotionBlur direction="left">
-                <Box className={classes.cover} maw={{ base: '100%', sm: '40vw', lg: '33vw' }}>
-                  <SanityImage image={data.mainImage.asset} />
-                </Box>
-              </MotionBlur>
-            ) : null}
+    <>
+      <RwdBlock w={{ base: '100%', sm: '90%', lg: 968 }} mx="auto" pt={40}>
+        <SimpleGrid cols={{ base: 1, xs: 2 }} spacing="xl">
+          {/*   Image  */}
+          {data.mainImage ? (
+            <Group style={{ order: matches ? 1 : 0 }} justify="right">
+              <Box w="100%" className={classes.cover} maw={matches ? 360 : ''}>
+                <AspectRatio ratio={3 / 4}>
+                  <MotionBlur direction="left">
+                    <SanityImage
+                      image={data.mainImage.asset}
+                      sizes="(max-width: 768px) 100vw, (max-width: 992px) 40vw, 33vw"
+                      w={1024}
+                    />
+                  </MotionBlur>
+                </AspectRatio>
+              </Box>
+            </Group>
+          ) : null}
 
-            {/*   Title  */}
-            <Box pos="absolute" bottom={{ base: -96, sm: 4 }} left={0}>
-              <MotionSlide delay={1}>
-                <Title fz={{ base: 48, sm: 64, lg: 96 }} mb={{ base: 16, sm: 24 }}>
-                  {data.title}
-                </Title>
-              </MotionSlide>
-              <MotionSlide delay={1.25}>
-                <Title fz={{ base: 20, sm: 28, lg: 44 }}>{data.subtitle1}</Title>
-              </MotionSlide>
-              <MotionSlide delay={1.5}>
-                <Title fz={{ base: 20, sm: 28, lg: 44 }}>{data.subtitle2}</Title>
-              </MotionSlide>
-            </Box>
-          </Box>
+          {/*   Title  */}
+          <Stack gap="lg">
+            <Box style={{ flexGrow: 1 }} />
 
-          {/*   Content  */}
-          <Box w={{ base: '100%', sm: '50vw' }} maw={580}>
-            {data.body ? (
-              <MotionSlide delay={1.75}>
-                <MyPortableText content={data.body} />
-              </MotionSlide>
-            ) : null}
+            <MotionSlide delay={1}>
+              <Title fz={{ base: 32, md: 40 }}>{data.title}</Title>
+            </MotionSlide>
+
+            <MotionSlide delay={1.25}>
+              <Title fz={{ base: 18, md: 22 }}>{data.subtitle}</Title>
+            </MotionSlide>
+
+            <Box />
+          </Stack>
+        </SimpleGrid>
+
+        <Space h={64} />
+
+        {/*   Content  */}
+        <Box maw={600} mx="auto">
+          {data.body ? (
+            <MotionSlide delay={1.75}>
+              <MyPortableText content={data.body} />
+            </MotionSlide>
+          ) : null}
+        </Box>
+      </RwdBlock>
+
+      {data.members?.length ? (
+        <RwdBlock>
+          <Title fz={24} ta="center" mb={{ base: 40, sm: 100, lg: 80 }}>
+            {data.memberTitle}
+          </Title>
+
+          <Box>
+            {matches ? (
+              <Box w="100%" maw={1200} mx="auto">
+                <RwdSimpleGrid cols={{ base: 2, lg: 3 }}>{renderMembers()}</RwdSimpleGrid>
+              </Box>
+            ) : (
+              <MyCarousel duration={data.memberDuration || 10} withControls={false}>
+                {renderMembers()}
+              </MyCarousel>
+            )}
           </Box>
         </RwdBlock>
+      ) : null}
 
-        {data.members?.length ? (
-          <RwdBlock>
-            <MyTitle ta="center" mb={{ base: 40, sm: 100, lg: 80 }}>
-              {data.membersTitle}
-            </MyTitle>
-
-            <Box>
-              {matches ? (
-                <Box w="100%" maw={1200} mx="auto">
-                  <RwdSimpleGrid cols={{ base: 2, lg: 3 }}>{renderMembers()}</RwdSimpleGrid>
-                </Box>
-              ) : (
-                <MyCarousel duration={data.duration || 10} withControls={false}>
-                  {renderMembers()}
-                </MyCarousel>
-              )}
-            </Box>
-          </RwdBlock>
-        ) : null}
-      </>
-    </RwdLayout>
+      <Divider />
+    </>
   )
 }

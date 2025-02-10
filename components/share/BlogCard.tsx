@@ -27,6 +27,7 @@ export function BlogCard({ data }: { data: Partial<PageData> }) {
           <Box pos="relative">
             <SanityImage
               image={imageAsset}
+              w={576}
               sizes="(max-width: 768px) 100vw, (max-width: 992px) 50vw, 33vw"
               style={{
                 borderRadius: 10,

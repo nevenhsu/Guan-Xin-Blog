@@ -32,6 +32,7 @@ export function LottieImage({ value }: LottieImageProps) {
       {asset ? (
         <SanityImage
           image={asset}
+          w={1024}
           style={{ visibility: hidden && animationData ? 'hidden' : 'unset' }}
         />
       ) : null}

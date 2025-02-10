@@ -49,7 +49,6 @@ export default defineType({
       fieldset: 'member',
     }),
   ],
-
   preview: {
     select: {
       title: 'title',

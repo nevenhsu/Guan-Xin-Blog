@@ -11,6 +11,7 @@ import socialMedia from './types/socialMedia'
 import blockContent from './types/blockContent'
 import content from './types/content'
 import pageData from './types/pageData'
+import about from './about'
 import home from './home'
 import page from './page'
 import category from './category'
@@ -39,6 +40,7 @@ export const schemaTypes = [
   blockContent,
   content,
   pageData,
+  about,
   home,
   page,
   footer,

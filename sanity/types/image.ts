@@ -7,7 +7,7 @@ type Palette = {
   population: number
 }
 
-type Dimensions = {
+export type Dimensions = {
   height: number
   width: number
   aspectRatio: number

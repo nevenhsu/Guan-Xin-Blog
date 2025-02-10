@@ -13,7 +13,7 @@ export function MySlide({ data }: MySlideProps) {
 
   return (
     <Center pos="relative" h="100%">
-      <SanityImage image={imageAsset} />
+      <SanityImage image={imageAsset} w={1024} />
       <Title
         px={60}
         style={{

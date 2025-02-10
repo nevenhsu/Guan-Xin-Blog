@@ -28,7 +28,10 @@ type PageProps = {
 
 export default function Blog({ slug, initialData }: PageProps) {
   const [data] = useQuery<Partial<PageData>>(initialData, pageQuery, { slug })
-  const { title, content, mainImage, author } = data
+  const { pageData, mainImage, author } = data
+  const { title, content } = pageData || {}
+  const { avatar } = author || {}
+
   const show = !_.isEmpty(data)
   const [isInit, setInit] = useState(false)
   const imageAsset = useRwdValue(mainImage, 'asset')
@@ -61,7 +64,7 @@ export default function Blog({ slug, initialData }: PageProps) {
               <Box className={clsx('absolute-center', classes.cover)}>
                 <MotionBlur delay={1}>
                   <Box>
-                    <SanityImage image={imageAsset} style={{ height: '100%' }} />
+                    <SanityImage image={imageAsset} w={1024} style={{ height: '100%' }} />
                   </Box>
                 </MotionBlur>
               </Box>
@@ -79,7 +82,7 @@ export default function Blog({ slug, initialData }: PageProps) {
           <Stack>
             <BlogInfo data={data} />
             <Headline>{title}</Headline>
-            {author ? <MyAvatar data={author} /> : null}
+            {avatar ? <MyAvatar data={avatar} /> : null}
           </Stack>
         </MotionSlide>
       </RwdLayout>
