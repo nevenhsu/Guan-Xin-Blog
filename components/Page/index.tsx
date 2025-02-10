@@ -7,8 +7,8 @@ import { useRwdValue } from '@/hooks/useRwdValue'
 import { motion } from 'framer-motion'
 import { MotionSlide, MotionBlur } from '@/components/motion'
 import { MyPortableText } from '@/components/common'
-import { Box, Stack, Space } from '@mantine/core'
-import { Headline } from '@/components/Fonts'
+import { Box, Group, Stack, Divider } from '@mantine/core'
+import { Headline, Body } from '@/components/Fonts'
 import { BlogInfo } from '@/components/share/BlogInfo'
 import RwdLayout from '@/components/share/RwdLayout'
 import SanityImage from '@/components/sanity/Image'
@@ -29,7 +29,7 @@ type PageProps = {
 export default function Blog({ slug, initialData }: PageProps) {
   const [data] = useQuery<Partial<PageData>>(initialData, pageQuery, { slug })
   const { pageData, mainImage, author } = data
-  const { title, content } = pageData || {}
+  const { title, description, content } = pageData || {}
   const { avatar } = author || {}
 
   const show = !_.isEmpty(data)
@@ -47,7 +47,7 @@ export default function Blog({ slug, initialData }: PageProps) {
   return (
     <>
       {imageAsset ? (
-        <Box pos="relative" h="30vh" style={{ pointerEvents: 'none' }}>
+        <Box pos="relative" h="40vh" style={{ pointerEvents: 'none' }}>
           {/*   Background   */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -64,7 +64,7 @@ export default function Blog({ slug, initialData }: PageProps) {
               <Box className={clsx('absolute-center', classes.cover)}>
                 <MotionBlur delay={1}>
                   <Box>
-                    <SanityImage image={imageAsset} w={1024} style={{ height: '100%' }} />
+                    <SanityImage image={imageAsset} w={1440} style={{ height: '100%' }} />
                   </Box>
                 </MotionBlur>
               </Box>
@@ -75,36 +75,43 @@ export default function Blog({ slug, initialData }: PageProps) {
 
       {/*   Title   */}
 
-      <Space h={{ base: 40, sm: 80 }} />
-
       <RwdLayout>
-        <MotionSlide delay={1}>
-          <Stack>
-            <BlogInfo data={data} />
-            <Headline>{title}</Headline>
-            {avatar ? <MyAvatar data={avatar} /> : null}
-          </Stack>
-        </MotionSlide>
-      </RwdLayout>
+        <Stack gap={40}>
+          <MotionSlide delay={1}>
+            <Stack gap="xl">
+              <Group justify="space-between">
+                {avatar ? <MyAvatar data={avatar} /> : null}
+                <BlogInfo data={data} />
+              </Group>
 
-      {/*   Content   */}
-      <Box
-        style={{
-          overflowX: 'hidden',
-        }}
-      >
-        <RwdLayout>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: isInit ? 0 : 2 }}
+              <Headline>{title}</Headline>
+
+              <Body fw={400}>{description}</Body>
+            </Stack>
+          </MotionSlide>
+
+          <MotionSlide delay={1.25}>
+            <Divider />
+          </MotionSlide>
+
+          {/*   Content   */}
+          <Box
+            style={{
+              overflowX: 'hidden',
+            }}
           >
-            <Box pos="relative" py={{ base: 40 }}>
-              <MyPortableText content={content || []} />
-            </Box>
-          </motion.div>
-        </RwdLayout>
-      </Box>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: isInit ? 0 : 2 }}
+            >
+              <Box pos="relative">
+                <MyPortableText content={content || []} />
+              </Box>
+            </motion.div>
+          </Box>
+        </Stack>
+      </RwdLayout>
     </>
   )
 }

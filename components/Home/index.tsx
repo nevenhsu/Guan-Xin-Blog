@@ -6,7 +6,6 @@ import { Carousel } from '@mantine/carousel'
 import { MySlide } from './MySlide'
 import RwdLayout from '@/components/share/RwdLayout'
 import { BlogCard } from '@/components/share/BlogCard'
-import { AlbumCover } from './AlbumCover'
 import useQuery from '@/sanity/hooks/useQuery'
 import { homeQuery } from '@/sanity/queries'
 import type { HomeData } from '@/sanity/types/home'
@@ -35,7 +34,7 @@ export default function Home({ initialData }: HomeProps) {
 
       <RwdLayout>
         <Stack gap={40}>
-          <Title order={2} fw={400}>
+          <Title order={3} fw={500}>
             {data.newsTitle || 'Latest news'}
           </Title>
 
@@ -46,8 +45,6 @@ export default function Home({ initialData }: HomeProps) {
               ))}
             </SimpleGrid>
           ) : null}
-
-          <Divider />
 
           {/* <Carousel
             withIndicators

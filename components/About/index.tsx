@@ -105,8 +105,6 @@ export default function About({ initialData }: AboutProps) {
           ) : null}
         </Stack>
       </RwdBlock>
-
-      <Divider />
     </>
   )
 }

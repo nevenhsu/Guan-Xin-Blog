@@ -32,7 +32,7 @@ export default function PopoverIcon({ data }: { data: SocialIconData }) {
           <TitleGroup data={data} />
 
           <Box pos="relative" w={160} h={160} mx="auto">
-            <SanityImage image={asset} w={160} />
+            <SanityImage image={asset} w={320} />
           </Box>
 
           <Body>{username}</Body>

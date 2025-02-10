@@ -3,7 +3,7 @@
 import useQuery from '@/sanity/hooks/useQuery'
 import { useAppContext } from '@/store/AppContext'
 import { MotionSlide } from '@/components/motion'
-import { Stack, Group, Space, SimpleGrid, px } from '@mantine/core'
+import { Stack, Group, Space, SimpleGrid, Divider, px } from '@mantine/core'
 import { Subtitle, Body, Caption } from '@/components/Fonts'
 import RwdLayout from '@/components/share/RwdLayout'
 import UnderlineMotion from '@/components/motion/Underline'
@@ -22,62 +22,66 @@ export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }
   const matches = width >= Number(px('48em'))
 
   return (
-    <RwdLayout w={{ base: '100%', lg: 992 }} mx="auto">
-      <MotionSlide>
-        <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
-          <Stack>
-            <Subtitle>{title}</Subtitle>
-            <Body maw={400}>{description}</Body>
-          </Stack>
+    <>
+      <Divider />
 
-          <Stack gap={4}>
-            {hasInfo && <Space h={{ base: 0, sm: 36 }} />}
+      <RwdLayout w={{ base: '100%', lg: 992 }} mx="auto">
+        <MotionSlide>
+          <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">
+            <Stack>
+              <Subtitle>{title}</Subtitle>
+              <Body maw={400}>{description}</Body>
+            </Stack>
 
-            {email ? (
-              <Link title="Email:">
-                <a href={`mailto:${email}`}>
-                  <Caption display="inline-block" className="c-pointer">
-                    {email}
-                  </Caption>
-                </a>
-              </Link>
-            ) : null}
+            <Stack gap={4}>
+              {hasInfo && <Space h={{ base: 0, sm: 36 }} />}
 
-            {phone ? (
-              <Link title="Phone:">
-                <a href={`tel:${phone}`}>
-                  <Caption display="inline-block" className="c-pointer">
-                    {phone}
-                  </Caption>
-                </a>
-              </Link>
-            ) : null}
+              {email ? (
+                <Link title="Email:">
+                  <a href={`mailto:${email}`}>
+                    <Caption display="inline-block" className="c-pointer">
+                      {email}
+                    </Caption>
+                  </a>
+                </Link>
+              ) : null}
 
-            {address ? (
-              <Link title="Address:">
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Caption display="inline-block" className="c-pointer">
-                    {address}
-                  </Caption>
-                </a>
-              </Link>
-            ) : null}
-          </Stack>
-        </SimpleGrid>
+              {phone ? (
+                <Link title="Phone:">
+                  <a href={`tel:${phone}`}>
+                    <Caption display="inline-block" className="c-pointer">
+                      {phone}
+                    </Caption>
+                  </a>
+                </Link>
+              ) : null}
 
-        {Boolean(links?.length) && <Space h={40} />}
+              {address ? (
+                <Link title="Address:">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Caption display="inline-block" className="c-pointer">
+                      {address}
+                    </Caption>
+                  </a>
+                </Link>
+              ) : null}
+            </Stack>
+          </SimpleGrid>
 
-        <Group gap={24} justify="center">
-          {links?.map(d =>
-            matches ? <PopoverIcon key={d._key} data={d} /> : <DrawerIcon key={d._key} data={d} />
-          )}
-        </Group>
-      </MotionSlide>
-    </RwdLayout>
+          {Boolean(links?.length) && <Space h={40} />}
+
+          <Group gap={24} justify="center">
+            {links?.map(d =>
+              matches ? <PopoverIcon key={d._key} data={d} /> : <DrawerIcon key={d._key} data={d} />
+            )}
+          </Group>
+        </MotionSlide>
+      </RwdLayout>
+    </>
   )
 }
 

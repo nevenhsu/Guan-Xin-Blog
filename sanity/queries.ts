@@ -30,7 +30,7 @@ const avatarQuery = groq`
   avatar {
     ...,
     image { ..., ${assetQuery} },
-  }
+  },
 `
 
 const memberQuery = groq`
@@ -105,7 +105,7 @@ const pageDataQuery = (withContent = true) => groq`
   },
   pageData {
     ...,
-    ${withContent ? 'content[] ${blockContent}' : '"content": null'},
+    ${withContent ? `content[] ${blockContent}` : '"content": null'},
   },
 `
 

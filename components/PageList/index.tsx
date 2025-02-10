@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import { useRouter } from '@/i18n/routing'
 import { useSearchParams } from 'next/navigation'
-import { Stack, Divider, Group, Box, Button, Text, Space } from '@mantine/core'
+import { Stack, Group, Box, Button, Text, Space } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import useQuery from '@/sanity/hooks/useQuery'
 import { pagesQuery } from '@/sanity/queries'
@@ -50,40 +50,40 @@ export default function PageList({ initialData, page, start, limit }: BlogListPr
 
   return (
     <>
-      <Stack gap="xl">
-        <RwdLayout w={{ base: '100%', lg: 992 }} mx="auto">
-          {noData ? (
-            <Stack py={40} gap="xl" align="center">
-              <Group justify="center">
-                <PiTrafficCone size={24} />
-                <Text>沒有更多文章</Text>
-              </Group>
-              <Box>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    router.push({
-                      pathname: '/page',
-                      query: { ...Object.fromEntries(searchParams.entries()), page: 0 },
-                    })
-                  }}
-                >
-                  返回第一頁
-                </Button>
-              </Box>
-            </Stack>
-          ) : (
-            <Stack gap={64}>
-              {_.map(data, (page, i) =>
-                matches ? (
-                  <BlogCard2 key={page._id} data={page} />
-                ) : (
-                  <BlogCard key={page._id} data={page} />
-                )
-              )}
-            </Stack>
-          )}
-        </RwdLayout>
+      <RwdLayout w={{ base: '100%', lg: 992 }} mx="auto">
+        {noData ? (
+          <Stack py={40} gap="xl" align="center">
+            <Group justify="center">
+              <PiTrafficCone size={24} />
+              <Text>沒有更多文章</Text>
+            </Group>
+            <Box>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  router.push({
+                    pathname: '/page',
+                    query: { ...Object.fromEntries(searchParams.entries()), page: 0 },
+                  })
+                }}
+              >
+                返回第一頁
+              </Button>
+            </Box>
+          </Stack>
+        ) : (
+          <Stack gap={64}>
+            {_.map(data, (page, i) =>
+              matches ? (
+                <BlogCard2 key={page._id} data={page} />
+              ) : (
+                <BlogCard key={page._id} data={page} />
+              )
+            )}
+          </Stack>
+        )}
+
+        <Space h={80} />
 
         <Group justify="center" wrap="nowrap">
           <PageButton onClick={() => handlePage(page - 1)} disabled={noPrev}>
@@ -112,9 +112,7 @@ export default function PageList({ initialData, page, start, limit }: BlogListPr
             </Group>
           </PageButton>
         </Group>
-
-        <Divider />
-      </Stack>
+      </RwdLayout>
     </>
   )
 }
