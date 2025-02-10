@@ -22,7 +22,7 @@ export default function MyAvatar({
           overflow: 'hidden',
         }}
       >
-        <SanityImage image={image?.asset} w={32} sizes="32px" />
+        <SanityImage image={image?.asset} w={150} sizes="32px" />
       </Box>
       <Box>
         <Text fw={500}>{name}</Text>

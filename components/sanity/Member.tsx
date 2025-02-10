@@ -1,5 +1,4 @@
-import { Box } from '@mantine/core'
-import { Body } from '@/components/Fonts'
+import { Box, Text } from '@mantine/core'
 import MyAvatar from '@/components/sanity/MyAvatar'
 import type { MemberData } from '@/sanity/types/member'
 
@@ -10,7 +9,7 @@ export function Member({ data }: { data: Partial<MemberData> }) {
       <MyAvatar data={avatar} showBio />
       {content ? (
         <Box my={24}>
-          <Body>{data.content}</Body>
+          <Text>{data.content}</Text>
         </Box>
       ) : null}
     </Box>

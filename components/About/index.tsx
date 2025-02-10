@@ -22,6 +22,8 @@ export default function About({ initialData }: AboutProps) {
   const matches = useMediaQuery('(min-width: 36em)')
   const [data] = useQuery<Partial<AboutData>>(initialData, aboutQuery)
 
+  console.log('About', data)
+
   const renderMembers = () => data.members?.map((o, i) => <Member key={`${o._id}-${i}`} data={o} />)
 
   if (!data) return null
@@ -56,44 +58,53 @@ export default function About({ initialData }: AboutProps) {
             </MotionSlide>
 
             <MotionSlide delay={1.25}>
-              <Title fz={{ base: 18, md: 22 }}>{data.subtitle}</Title>
+              <Title fz={{ base: 18, md: 22 }} fw={500}>
+                {data.subtitle}
+              </Title>
             </MotionSlide>
 
             <Box />
           </Stack>
         </SimpleGrid>
 
-        <Space h={64} />
+        <Space h={80} />
 
-        {/*   Content  */}
-        <Box maw={600} mx="auto">
-          {data.body ? (
-            <MotionSlide delay={1.75}>
-              <MyPortableText content={data.body} />
-            </MotionSlide>
-          ) : null}
-        </Box>
-      </RwdBlock>
-
-      {data.members?.length ? (
-        <RwdBlock>
-          <Title fz={24} ta="center" mb={{ base: 40, sm: 100, lg: 80 }}>
-            {data.memberTitle}
-          </Title>
-
-          <Box>
-            {matches ? (
-              <Box w="100%" maw={1200} mx="auto">
-                <RwdSimpleGrid cols={{ base: 2, lg: 3 }}>{renderMembers()}</RwdSimpleGrid>
-              </Box>
-            ) : (
-              <MyCarousel duration={data.memberDuration || 10} withControls={false}>
-                {renderMembers()}
-              </MyCarousel>
-            )}
+        <Stack gap={64}>
+          {/*   Content  */}
+          <Box maw={600} mx="auto">
+            {data.body ? (
+              <MotionSlide delay={1.75}>
+                <MyPortableText content={data.body} />
+              </MotionSlide>
+            ) : null}
           </Box>
-        </RwdBlock>
-      ) : null}
+
+          {/*   Members  */}
+          {data.members?.length ? (
+            <>
+              <Divider />
+
+              <Stack gap={64}>
+                <Title order={2} ta="center">
+                  {data.memberTitle}
+                </Title>
+
+                <Box>
+                  {matches ? (
+                    <RwdSimpleGrid cols={{ base: 2, md: 3 }} spacing={40}>
+                      {renderMembers()}
+                    </RwdSimpleGrid>
+                  ) : (
+                    <MyCarousel duration={data.memberDuration || 10} withControls={false}>
+                      {renderMembers()}
+                    </MyCarousel>
+                  )}
+                </Box>
+              </Stack>
+            </>
+          ) : null}
+        </Stack>
+      </RwdBlock>
 
       <Divider />
     </>

@@ -26,14 +26,16 @@ const imageQuery = groq`
 *[_id == $id][0] 
 `
 
+const avatarQuery = groq`
+  avatar {
+    ...,
+    image { ..., ${assetQuery} },
+  }
+`
+
 const memberQuery = groq`
   ...,
-  avatar-> {
-    ...,
-    image {
-      ${assetQuery}
-    }
-  }
+  ${avatarQuery}
 `
 
 const contentRef = groq`
@@ -99,10 +101,7 @@ const pageDataQuery = (withContent = true) => groq`
   },
   author-> {
     ...,
-    avatar {
-      ...,
-      image { ..., ${assetQuery} },
-    }
+    ${avatarQuery}
   },
   pageData {
     ...,
