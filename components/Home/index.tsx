@@ -1,10 +1,10 @@
 'use client'
 
 import * as _ from 'lodash-es'
-import { Stack, Space, Title, Divider, SimpleGrid } from '@mantine/core'
-import { Carousel } from '@mantine/carousel'
+import { Stack, Title, SimpleGrid, Space } from '@mantine/core'
 import { MySlide } from './MySlide'
 import RwdLayout from '@/components/share/RwdLayout'
+import MyCarousel from '@/components/Carousel'
 import { BlogCard } from '@/components/share/BlogCard'
 import useQuery from '@/sanity/hooks/useQuery'
 import { homeQuery } from '@/sanity/queries'
@@ -22,13 +22,16 @@ export default function Home({ initialData }: HomeProps) {
 
   return (
     <>
-      <Carousel withIndicators={hasMultiBanners} withControls={hasMultiBanners} loop height="40vh">
+      <MyCarousel
+        duration={data.bannerDuration || 10}
+        height="40vh"
+        color="--mantine-color-white"
+        mb={-24}
+      >
         {_.map(bannerPages, page => (
-          <Carousel.Slide key={page._id}>
-            <MySlide data={page} />
-          </Carousel.Slide>
+          <MySlide key={page._id} data={page} />
         ))}
-      </Carousel>
+      </MyCarousel>
 
       <Space h="xl" />
 

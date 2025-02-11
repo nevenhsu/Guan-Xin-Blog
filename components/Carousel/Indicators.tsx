@@ -13,6 +13,7 @@ type IndicatorsProps = {
   duration: number
   paused: boolean
   embla?: Embla
+  color?: string
 }
 
 export default function Indicators({
@@ -21,6 +22,7 @@ export default function Indicators({
   selectedIndex,
   paused,
   duration,
+  color,
 }: IndicatorsProps) {
   const handleComplete = useCallback(() => {
     if (embla) {
@@ -29,7 +31,14 @@ export default function Indicators({
   }, [embla])
 
   return (
-    <Group mt={40} gap={8} justify="center">
+    <Group
+      gap={8}
+      justify="center"
+      pos="relative"
+      style={{
+        zIndex: 1,
+      }}
+    >
       {Array.from({ length: num }).map((_, i) => {
         const isCurr = i === selectedIndex
         return (
@@ -44,7 +53,7 @@ export default function Indicators({
             <motion.div
               style={{
                 position: 'relative',
-                background: 'var(--mantine-color-text)',
+                background: `var(${color})`,
                 borderRadius: 4,
                 overflow: 'hidden',
                 opacity: 0.3,
@@ -58,6 +67,7 @@ export default function Indicators({
               pause={paused}
               isCurr={isCurr}
               onComplete={handleComplete}
+              color={color}
             />
           </Box>
         )
@@ -71,9 +81,10 @@ type DotProgressProps = {
   isCurr: boolean
   pause: boolean
   onComplete: () => void
+  color?: string
 }
 
-function DotProgress({ duration, isCurr, pause, onComplete }: DotProgressProps) {
+function DotProgress({ duration, isCurr, pause, color, onComplete }: DotProgressProps) {
   const [scope, animate] = useAnimate()
   const width = useMotionValue(0)
 
@@ -96,7 +107,7 @@ function DotProgress({ duration, isCurr, pause, onComplete }: DotProgressProps) 
       className={clsx(classes.progress, { [classes.paused]: pause })}
       style={{
         position: 'absolute',
-        background: 'var(--mantine-color-text)',
+        background: `var(${color})`,
         borderRadius: 4,
         overflow: 'hidden',
         top: 0,

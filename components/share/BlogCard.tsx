@@ -22,7 +22,7 @@ export function BlogCard({ data }: { data: Partial<PageData> }) {
         params: { slug: slug?.current || '' },
       }}
     >
-      <Stack>
+      <Stack h="100%">
         <AspectRatio ratio={3 / 2}>
           <Box pos="relative">
             <SanityImage

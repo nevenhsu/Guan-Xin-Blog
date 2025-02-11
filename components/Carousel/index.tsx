@@ -8,14 +8,16 @@ import type { CarouselProps } from '@mantine/carousel'
 
 export default function MyCarousel({
   children,
-  duration,
+  color = '--mantine-color-text',
+  duration = 10,
   ...rest
-}: CarouselProps & { duration: number }) {
+}: CarouselProps & { duration?: number; color?: string }) {
   const [count, setCount] = useState(0)
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [embla, setEmbla] = useState<Embla>()
 
   const items = Children.toArray(children)
+  const hasMultiItems = items.length > 1
   const paused = count % 2 != 0
 
   const handleSelected = () => {
@@ -33,18 +35,21 @@ export default function MyCarousel({
 
   return (
     <Box onClick={() => setCount(prev => prev + 1)}>
-      <Carousel loop {...rest} getEmblaApi={setEmbla}>
+      <Carousel mb="xl" withControls={hasMultiItems} loop {...rest} getEmblaApi={setEmbla}>
         {items.map((child, i) => (
           <Carousel.Slide key={`Carousel-${i}`}>{child}</Carousel.Slide>
         ))}
       </Carousel>
-      <Indicators
-        num={items.length}
-        selectedIndex={selectedIndex}
-        duration={duration}
-        paused={paused}
-        embla={embla}
-      />
+      {hasMultiItems ? (
+        <Indicators
+          num={items.length}
+          selectedIndex={selectedIndex}
+          duration={duration}
+          color={color}
+          paused={paused}
+          embla={embla}
+        />
+      ) : null}
     </Box>
   )
 }
