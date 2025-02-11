@@ -11,6 +11,7 @@ a:active {
   text-decoration: none;
   cursor: pointer;
   color: unset;
+  outline: none;
 }
 
 .c-pointer {

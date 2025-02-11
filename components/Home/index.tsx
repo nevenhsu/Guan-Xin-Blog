@@ -18,7 +18,6 @@ export default function Home({ initialData }: HomeProps) {
   const [data] = useQuery<Partial<HomeData>>(initialData, homeQuery)
 
   const { bannerPages, newsPages } = data
-  const hasMultiBanners = (bannerPages?.length || 0) > 1
 
   return (
     <>
