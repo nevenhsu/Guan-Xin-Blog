@@ -3,7 +3,7 @@
 import useQuery from '@/sanity/hooks/useQuery'
 import { useAppContext } from '@/store/AppContext'
 import { MotionSlide } from '@/components/motion'
-import { Stack, Group, Space, SimpleGrid, Divider, px } from '@mantine/core'
+import { Stack, Group, Space, SimpleGrid, px } from '@mantine/core'
 import { Subtitle, Body, Caption } from '@/components/Fonts'
 import RwdLayout from '@/components/share/RwdLayout'
 import UnderlineMotion from '@/components/motion/Underline'
@@ -23,8 +23,6 @@ export function FooterInfo({ initialData }: { initialData: Partial<FooterData> }
 
   return (
     <>
-      <Divider />
-
       <RwdLayout w={{ base: '100%', lg: 992 }} mx="auto">
         <MotionSlide>
           <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xl">

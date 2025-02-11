@@ -27,6 +27,7 @@ export function MySlide({ data }: MySlideProps) {
         <Stack justify="center" gap="xl">
           <Title
             px={60}
+            order={2}
             style={{
               zIndex: 1,
               color: 'var(--mantine-color-white)',

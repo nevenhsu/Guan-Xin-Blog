@@ -5,8 +5,7 @@ import { usePrevious } from 'react-use'
 import { useAppContext } from '@/store/AppContext'
 import { AppShell, Space } from '@mantine/core'
 import Header from './Header'
-import Footer from './Footer'
-import { FooterInfo } from '@/components/Footer/FooterInfo'
+import Footer from '@/components/Footer'
 import { variables } from '@/theme/cssVariables'
 import type { FooterData } from '@/sanity/types/footer'
 import classes from './index.module.css'
@@ -45,15 +44,9 @@ export default function MyAppShell(props: MyShellProps) {
         <>
           {children}
 
-          <FooterInfo initialData={footerData} />
-
-          <Space h={24} />
+          <Footer footerData={footerData} />
         </>
       </AppShell.Main>
-
-      <AppShell.Footer>
-        <Footer />
-      </AppShell.Footer>
     </AppShell>
   )
 }
